@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "claim")  // ✅ Ensure lowercase name for MySQL consistency
+@Table(name = "claim")
 public class Claim {
 
     @Id
@@ -14,7 +14,7 @@ public class Claim {
     private Long claimId;
 
     @ManyToOne
-    @JoinColumn(name = "policy_id", nullable = false)  // ✅ Correctly references `policy_id`
+    @JoinColumn(name = "policy_id", nullable = false)
     private Policy policy;
 
     @Temporal(TemporalType.DATE)
@@ -35,10 +35,10 @@ public class Claim {
         PENDING, PAID, REJECTED
     }
 
-    // ✅ Default Constructor (Required by JPA)
+
     public Claim() {}
 
-    // ✅ Constructor (Without `claimId`, since it’s auto-generated)
+
     public Claim(Policy policy, Date claimDate, String claimDescription, BigDecimal claimAmount, ClaimStatus claimStatus) {
         this.policy = policy;
         this.claimDate = claimDate;
@@ -47,7 +47,7 @@ public class Claim {
         this.claimStatus = claimStatus;
     }
 
-    // ✅ Getters and Setters
+
     public Long getClaimId() {
         return claimId;
     }

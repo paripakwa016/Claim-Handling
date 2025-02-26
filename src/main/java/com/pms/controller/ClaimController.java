@@ -17,12 +17,13 @@ public class ClaimController {
     private ClaimService claimService;
 
     @PostMapping
-    public ResponseEntity<?> createClaim(@RequestBody Claim claim) {  // ✅ Add @RequestBody
+    public ResponseEntity<?> createClaim(@RequestBody Claim claim) {
+        System.out.println(claim);
         try {
             Claim savedClaim = claimService.createClaim(claim);
-            return ResponseEntity.ok(savedClaim);  // ✅ Return a proper HTTP response
+            return ResponseEntity.ok(savedClaim);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());  // ✅ Return meaningful error messages
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

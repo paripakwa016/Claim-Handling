@@ -24,10 +24,10 @@ public class ClaimService {
             throw new RuntimeException("Policy ID is required to create a claim.");
         }
 
-        System.out.println("🔍 Received Policy ID: " + claim.getPolicy().getPolicyId());  // ✅ Debugging Log
+        System.out.println("Received Policy ID: " + claim.getPolicy().getPolicyId());
 
         Policy policy = policyRepository.findById(claim.getPolicy().getPolicyId())
-                .orElseThrow(() -> new RuntimeException("🚨 Policy not found in database."));
+                .orElseThrow(() -> new RuntimeException("Policy not found in database."));
 
         claim.setPolicy(policy);  // ✅ Ensure policy is set before saving
         return claimRepository.save(claim);

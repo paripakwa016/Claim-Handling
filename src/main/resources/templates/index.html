@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PolicyTrust - Claim Management</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+<header class="navbar">
+    <div class="logo">Policy<span>Trust</span></div>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/about}">About</a></li>
+            <li><a th:href="@{/services}">Services</a></li>
+            <li><a th:href="@{/pages}">Pages</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1 class="title">Claim Management</h1>
+
+    <!-- Create New Claim Section -->
+    <section class="form-section">
+        <h2>Create New Claim</h2>
+        <form id="createClaimForm">
+            <input type="number" name="policy.policyId" placeholder="Enter Policy ID" required />
+            <input type="date" name="claimDate" required />
+            <textarea name="claimDescription" placeholder="Enter claim description" required></textarea>
+            <input type="number" name="claimAmount" placeholder="Enter claim amount" required />
+            <select name="claimStatus">
+                <option value="PENDING">Pending</option>
+                <option value="PAID">Paid</option>
+                <option value="REJECTED">Rejected</option>
+            </select>
+            <div class="btn-group">
+                <button type="submit" class="btn save">Save Claim</button>
+                <button type="reset" class="btn clear">Clear Form</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Update Claim Details Section -->
+    <section class="form-section">
+        <h2>Update Claim Details</h2>
+        <form id="updateClaimForm">
+            <input type="text" name="claimId" placeholder="Enter Claim ID to update" required />
+            <textarea name="claimDescription" placeholder="Update claim description"></textarea>
+            <select name="claimStatus">
+                <option value="PENDING">Pending</option>
+                <option value="PAID">Paid</option>
+                <option value="REJECTED">Rejected</option>
+            </select>
+            <button type="submit" class="btn update">Update Claim</button>
+        </form>
+    </section>
+
+    <!-- View Claim Details Section -->
+    <section class="form-section">
+        <h2>View Claim Details</h2>
+        <form id="viewClaimForm">
+            <input type="text" name="policyId" placeholder="Enter Policy ID to view claims" required />
+            <button type="submit" class="btn view">View Claims</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <div>
+            <h3>PolicyTrust</h3>
+            <p>Your trusted partner for comprehensive protection and security.</p>
+        </div>
+        <div>
+            <h4>Policy Information</h4>
+            <ul>
+                <li><a th:href="@{/policies}">Our Policies</a></li>
+                <li><a th:href="@{/coverage}">Coverage Plans</a></li>
+                <li><a th:href="@{/claimProcess}">Claim Process</a></li>
+                <li><a th:href="@{/terms}">Terms & Conditions</a></li>
+                <li><a th:href="@{/privacy}">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Contact Us</h4>
+            <p>Email: info@policytrust.com</p>
+            <p>Phone: (+012) 3567 7650</p>
+        </div>
+    </div>
+    <p class="copyright">© 2024 PolicyTrust. All Rights Reserved.</p>
+</footer>
+
+<script th:src="@{/script.js}"></script>
+</body>
+</html>

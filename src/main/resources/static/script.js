@@ -1,95 +1,108 @@
+const API_BASE_URL = "http://localhost:9797/api/claims";
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Handle Create Claim Submission
-  document.getElementById("createClaimForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
 
-      const policyId = document.querySelector("[name='policy.policyId']").value;
+    // Handle Create Claim Submission
+    document.getElementById("createClaimForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        console.log("hello world");
 
-      const claimData = {
-          policy: { policyId: parseInt(policyId) },
-          claimDate: document.querySelector("[name='claimDate']").value,
-          claimDescription: document.querySelector("[name='claimDescription']").value,
-          claimAmount: parseFloat(document.querySelector("[name='claimAmount']").value),
-          claimStatus: document.querySelector("[name='claimStatus']").value
-      };
+        const policyId = document.querySelector("[name='policxy.policyId']").value;
 
-      console.log("Sending request:", claimData); // Debugging Log
+        const claimData = {
+            policy: { policyId: parseInt(policyId) },
+            claimDate: document.querySelector("[name='claimDate']").value,
+            claimDescription: document.querySelector("[name='claimDescription']").value,
+            claimAmount: parseFloat(document.querySelector("[name='claimAmount']").value),
+            claimStatus: document.querySelector("[name='claimStatus']").value
+        };
 
-      try {
-          const response = await fetch("http://localhost:9797/api/claims", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(claimData),
-          });
+        console.log("Sending request:", claimData); // Debugging Log
 
-          console.log("Response status:", response.status);
+        try {
+            const response = await fetch(`${API_BASE_URL}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(claimData),
+            });
 
-          if (!response.ok) throw new Error("Failed to save claim");
+            console.log("Response status:", response.status);
 
-          const result = await response.json();
-          alert("Claim saved successfully! ID: " + result.claimId);
-          document.getElementById("createClaimForm").reset();
-      } catch (error) {
-          console.error("Error:", error);
-          alert("Error: " + error.message);
-      }
-  });
+            if (!response.ok) throw new Error("Failed to save claim");
 
+            const result = await response.json();
+            alert("Claim saved successfully! ID: " + result.claimId);
+            document.getElementById("createClaimForm").reset();
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error: " + error.message);
+        }
+    });
 
-  // Handle Update Claim Submission
-  document.getElementById("updateClaimForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+    // Handle Update Claim Submission
+    document.getElementById("updateClaimForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    const claimId = document.querySelector("[name='claimId']").value;
-    const updatedData = {
-      claimDescription: document.querySelector("[name='claimDescription']").value,
-      claimStatus: document.querySelector("[name='claimStatus']").value,
-    };
+        const claimId = document.querySelector("[name='claimId']").value;
+        const updatedData = {
+            claimDescription: document.querySelector("[name='claimDescription']").value,
+            claimStatus: document.querySelector("[name='claimStatus']").value,
+        };
 
-    try {
-      const response = await fetch(`/api/claims/${claimId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedData),
-      });
+        console.log("Updating claim:", claimId, updatedData); // Debugging Log
 
-      if (!response.ok) {
-        throw new Error("Failed to update claim");
-      }
+        try {
+            const response = await fetch(`${API_BASE_URL}/${claimId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedData),
+            });
 
-      alert("Claim updated successfully!");
-      document.getElementById("updateClaimForm").reset();
-    } catch (error) {
-      alert("Error: " + error.message);
-    }
-  });
+            console.log("Response status:", response.status);
 
-  // Handle View Claims
-  document.getElementById("viewClaimForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+            if (!response.ok) {
+                throw new Error("Failed to update claim");
+            }
 
-    const policyId = document.querySelector("[name='policyId']").value;
+            alert("Claim updated successfully!");
+            document.getElementById("updateClaimForm").reset();
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error: " + error.message);
+        }
+    });
 
-    try {
-      const response = await fetch(`/api/claims?policyId=${policyId}`, {
-        method: "GET",
-      });
+    // Handle View Claims
+    document.getElementById("viewClaimForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch claims");
-      }
+        const policyId = document.querySelector("[name='policyId']").value;
 
-      const claims = await response.json();
-      let output = claims.map(
-        (claim) =>
-          `ID: ${claim.claimId}, Amount: ${claim.claimAmount}, Status: ${claim.claimStatus}`
-      ).join("\n");
+        console.log("Fetching claims for policy:", policyId); // Debugging Log
 
-      alert("Claims:\n" + output);
-    } catch (error) {
-      alert("Error: " + error.message);
-    }
-  });
+        try {
+            const response = await fetch(`${API_BASE_URL}?policyId=${policyId}`, {
+                method: "GET",
+            });
+
+            console.log("Response status:", response.status);
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch claims");
+            }
+
+            const claims = await response.json();
+            let output = claims.map(
+                (claim) =>
+                    `ID: ${claim.claimId}, Amount: ${claim.claimAmount}, Status: ${claim.claimStatus}`
+            ).join("\n");
+
+            alert("Claims:\n" + output);
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error: " + error.message);
+        }
+    });
 });

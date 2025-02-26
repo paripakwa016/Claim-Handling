@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
         console.log("hello world");
 
-        const policyId = document.querySelector("[name='policxy.policyId']").value;
+        const policyId = document.querySelector("[name='policy.policyId']").value;
 
         const claimData = {
             policy: { policyId: parseInt(policyId) },

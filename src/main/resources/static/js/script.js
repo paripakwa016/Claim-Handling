@@ -94,13 +94,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error("Failed to fetch claims");
             }
 
-            const claims = await response.json();
-            let output = claims.map(
-                (claim) =>
-                    `ID: ${claim.claimId}, Amount: ${claim.claimAmount}, Status: ${claim.claimStatus}`
-            ).join("\n");
+            const claim = await response.json();
 
-            alert("Claims:\n" + output);
+
+            console.log(claim);
         } catch (error) {
             console.error("Error:", error);
             alert("Error: " + error.message);

@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const policyId = document.querySelector("[name='policyId']").value;
 
         console.log("Fetching claims for policy:", policyId); // Debugging Log
+        console.log(`${API_BASE_URL}/${policyId}`);
 
         try {
             const response = await fetch(`${API_BASE_URL}/${policyId}`, {

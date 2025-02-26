@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Fetching claims for policy:", policyId); // Debugging Log
 
         try {
-            const response = await fetch(`${API_BASE_URL}?policyId=${policyId}`, {
+            const response = await fetch(`${API_BASE_URL}/${policyId}`, {
                 method: "GET",
             });
 

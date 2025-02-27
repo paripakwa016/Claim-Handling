@@ -44,4 +44,24 @@ public class ClaimController {
         claimService.deleteClaim(id);
         return ResponseEntity.ok("Claim deleted successfully.");
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateClaim(@PathVariable Long id, @RequestBody Claim updatedClaim) {
+        Optional<Claim> record = claimService.getClaimById(id);
+        if (record.isEmpty()) {
+            return ResponseEntity.badRequest().body("Claim does not exist");
+        }
+
+        try {
+            Claim claim = record.get();
+            claim.setClaimDescription(updatedClaim.getClaimDescription());
+            claim.setClaimStatus(updatedClaim.getClaimStatus());
+
+            Claim savedClaim = claimService.createClaim(claim);
+            return ResponseEntity.ok(savedClaim);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 }

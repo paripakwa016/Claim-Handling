@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle Create Claim Submission
     document.getElementById("createClaimForm").addEventListener("submit", async (e) => {
         e.preventDefault();
-        console.log("hello world");
+
 
         const policyId = document.querySelector("[name='policy.policyId']").value;
 
@@ -40,39 +40,69 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Handle Update Claim Submission
-    document.getElementById("updateClaimForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
+  document.getElementById("updateClaimForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-        const claimId = document.querySelector("[name='claimId']").value;
-        const updatedData = {
-            claimDescription: document.querySelector("[name='claimDescription']").value,
-            claimStatus: document.querySelector("[name='claimStatus']").value,
-        };
+      const claimId = document.querySelector("[name='claimId']").value;
+      const claimDescriptionField = document.querySelector("[name='claimDescription']");
+      const claimStatusField = document.querySelector("[name='claimStatus']");
 
-        console.log("Updating claim:", claimId, updatedData); // Debugging Log
+      if (!claimDescriptionField || !claimStatusField) {
+          alert("❌ Error: Some form fields are missing!");
+          return;
+      }
 
-        try {
-            const response = await fetch(`${API_BASE_URL}/${claimId}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updatedData),
-            });
+      const claimDescription = claimDescriptionField.value.trim();
+      const claimStatus = claimStatusField.value;
 
-            console.log("Response status:", response.status);
+      console.log("🟢 Captured claimDescription:", claimDescription);
+      console.log("🟢 Captured claimStatus:", claimStatus);
 
-            if (!response.ok) {
-                throw new Error("Failed to update claim");
-            }
+      if (!claimId) {
+          alert("❌ Please enter a valid Claim ID.");
+          return;
+      }
 
-            alert("Claim updated successfully!");
-            document.getElementById("updateClaimForm").reset();
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Error: " + error.message);
-        }
-    });
+      const updatedData = {};
+
+      if (claimDescription !== "") {
+          updatedData.claimDescription = claimDescription;
+      }
+      if (claimStatus !== "") {
+          updatedData.claimStatus = claimStatus;
+      }
+
+      if (Object.keys(updatedData).length === 0) {
+          alert("❌ No changes detected. Please update at least one field.");
+          return;
+      }
+
+      console.log("🟡 Sending PUT Request:", JSON.stringify(updatedData));
+
+      try {
+          const response = await fetch(`http://localhost:9797/api/claims/${claimId}`, {
+              method: "PUT",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updatedData),
+          });
+
+          console.log("🟡 Response Status:", response.status);
+
+          if (!response.ok) {
+              throw new Error("Failed to update claim");
+          }
+
+          alert("✅ Claim updated successfully!");
+          document.getElementById("updateClaimForm").reset();
+      } catch (error) {
+          console.error("❌ Error:", error);
+          alert("Error: " + error.message);
+      }
+  });
+
+
 
     // Handle View Claims
     document.getElementById("viewClaimForm").addEventListener("submit", async (e) => {

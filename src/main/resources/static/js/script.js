@@ -43,9 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("updateClaimForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const claimId = document.querySelector("[name='claimId']").value;
-      const claimDescriptionField = document.querySelector("[name='claimDescription']");
-      const claimStatusField = document.querySelector("[name='claimStatus']");
+      const claimId = document.querySelector("[name='claimIdUpdate']").value;
+      const claimDescriptionField = document.querySelector("[name='claimDescriptionUpdate']");
+      const claimStatusField = document.querySelector("[name='claimStatusUpdate']");
 
       if (!claimDescriptionField || !claimStatusField) {
           alert("❌ Error: Some form fields are missing!");
@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Error: " + error.message);
       }
   });
+
 
 
 

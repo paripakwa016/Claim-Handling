@@ -1,0 +1,159 @@
+/* General Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+h1.title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.form-section {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+  background-color: #e3e9ef;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  resize: vertical;
+  height: 80px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.save {
+  background-color: #28a745;
+  color: white;
+}
+
+.clear {
+  background-color: #6c757d;
+  color: white;
+}
+
+.update {
+  background-color: #007bff;
+  color: white;
+  width: 100%;
+}
+
+.view {
+  background-color: #17a2b8;
+  color: white;
+  width: 100%;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #fff;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #007bff;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #007bff;
+}
+
+/* Footer */
+footer {
+  background-color: #212529;
+  color: #ccc;
+  padding: 30px 40px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-content h3,
+.footer-content h4 {
+  margin-bottom: 10px;
+}
+
+.footer-content p,
+.footer-content ul li {
+  margin-bottom: 8px;
+}
+
+footer a {
+  color: #17a2b8;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .copyright {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
